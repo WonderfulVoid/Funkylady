@@ -1,0 +1,8 @@
+#this is Funkylady's parameter file
+computercolor white
+targettime 300
+cachesize 0
+deterministic false
+potmobility 1
+winloss 43
+discdiff 47
