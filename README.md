@@ -15,10 +15,12 @@ In-game commands:
 - quit				Quit the game
 - undo [{nummoves}]		Undo move(s)
 - save [{filename}]		Save current board position and config
-- load [{filename} [{frommove}]]	Load board position and config, replay moves
+- load [{filename} [{frommove}]] Load board position and config, replay moves
 - help [{targettime}]		Let the computer suggest a good move
 
-Run a performance benchmark with a predefined position. Below is from my Core2 Duo @ 2GHz:
+Run a performance benchmark from a predefined position.
+Below is from my Core2 Duo @ 2.0GHz:
+
 	$ ./funkylady -load pos
 	Welcome to Funkylady, the Othello contestor
 	Copyright 1993 Ola Liljedahl, all rights reserved
@@ -59,10 +61,27 @@ Ola Liljedahl ola.liljedahl@gmail.com
 
 Background
 --------------
-I wrote Funkylady back in 1993-1994 as a spin-off from the functional model (thus the name) of "Desdemona". Desdemona was our HW+SW (386 PC + ISA board with FPGA's) implementation of the Othello board game that was developed in the 1993 Computer Design Project (DSK - Datorsystemkonstruktion) at Lunds Tekniska Högskola.
+I wrote Funkylady back in 1993-1994 as a spin-off from the functional
+model (thus the name) of "Desdemona". Desdemona was our HW+SW (386
+PC + ISA board with FPGA's) implementation of the Othello board game
+that was developed in the 1993 Computer Design Project (DSK -
+Datorsystemkonstruktion) at Lunds Tekniska Högskola.
 
-I also contributed to the original HW rough architecture proposal for Desdemona which was used for planning the actual development project. Desdemona participated in the 1st International Computer Othello Tournament held in Paderborn 1993 where it shared 6th place (of 12 participants).
+I also contributed to the original HW rough architecture proposal
+for Desdemona which was used for planning the actual development
+project. Desdemona participated in the 1st International Computer
+Othello Tournament held in Paderborn 1993 where it shared 6th place
+(of 12 participants).
 
-The DSK class was lead by prof. Lars Philipson and used the slanted wave principle ("sneda vågens princip"). This method breaks down the development into a number of (dependent) subprojects that can be developed in parallel, thus speeding up development. Unlike modern agile projects, the slanted wave principle requires detailed planning but this only concerns *what* functionality shall be completed at well-defined milestones, not how to implement the functionality. The advantage of the slanted wave principle is that very complex designs can be developed in a bounded time (you still have to work very hard).
+The DSK class was lead by prof. Lars Philipson and used the slanted
+wave principle ("sneda vågens princip"). This method breaks down
+the development into a number of (dependent) subprojects that can be
+developed in parallel, thus speeding up development. Unlike modern
+agile projects, the slanted wave principle requires detailed planning
+but this only concerns *what* functionality shall be completed at
+well-defined milestones, not how to implement the functionality.
+The advantage of the slanted wave principle is that very complex
+designs can be developed in a bounded time (you still have to work
+very hard).
 
 Those were the days...
