@@ -777,7 +777,7 @@ static int _earlyeg_alfabeta(board brd,int ply,int alfa,int beta,bool otherpasse
 	return bestvalue;
 }
 
-STATIC int earlyeg_alfabeta(board brd,color_t tomove,long target)
+STATIC int earlyeg_alfabeta(board brd,color_t tomove,unsigned target)
 {
 	unsigned long start=cpu_time();
 	const int alfa=-INFINITY,beta=INFINITY;

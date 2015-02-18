@@ -141,7 +141,7 @@ static void sort_move_array(board brd,uint8_t moves[],int success[],bool random)
 
 	for(i=0;i<NUMMOVES;i++)
 	{
-		int m,bestm=-1,bests=-1;
+		int m,bestm=undef,bests=-1;
 		for(m=0;m<64;m++)
 		{
 			if(!GETBIT(occupied,m) && (success[m]>bests || (random && success[m]==bests && bool_random())))
@@ -219,7 +219,7 @@ STATIC result_t endgame_search(board brd,color_t tomove,long target,evaluation_t
 	return result;
 }
 
-STATIC result_t iterative_deepening(board brd,color_t tomove,long target,long extra,search_t mode,evaluation_t eval,bool randomsort)
+STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned target,unsigned extra,search_t mode,evaluation_t eval,bool randomsort)
 {
 #define SSDEPTH 2
 	result_t result;
@@ -235,7 +235,7 @@ STATIC result_t iterative_deepening(board brd,color_t tomove,long target,long ex
 	result.target=target;
 	remove_played_moves(brd);
 
-	printf("Search time target %lu.%02lu secs\n",target/100,target%100);
+	printf("Search time target %u.%02u secs\n",target/100,target%100);
 	printf("ply ss  bm  value nodes hits  time  nodes/s\n");
 
 	for(maxply=first;maxply<=last && (cpu_time()-start)<target*2/3;maxply++)
@@ -259,16 +259,16 @@ STATIC result_t iterative_deepening(board brd,color_t tomove,long target,long ex
 			if(elapsed) printf("%2d  %2d  %c%c %5d %6lu %3lu%% %3lu.%02lu   %4lu\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0,elapsed/100,elapsed%100,100*ABCALLS/elapsed);
 			else		printf("%2d  %2d  %c%c %5d %6lu %3lu%%  ~0\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0);
 		}
-		if(BESTMOVE==-1)
+		if(BESTMOVE==undef)
                 {
-                    fprintf(stderr, "BESTMOVE==-1\n");
+                    fprintf(stderr, "BESTMOVE==undef\n");
                     abort();
                     break;
                 }
 
 		if(extra && maxply<last && cpu_time()-start>=target*2/3 && bestvalue<prevbv && bestvalue<prevbv-abs(prevbv)/2 && cpu_time()-start<(target+extra)*2/3)
 		{
-			printf("Increasing target time with %lu.%02lu secs\n",extra/100,extra%100);
+			printf("Increasing target time with %u.%02u secs\n",extra/100,extra%100);
 			target+=extra;
 			result.target+=extra;
 			extra=0;

@@ -76,7 +76,7 @@ static void print_board(board brade,move_t move)
 		printf("%d | ",y+1);
 		for(x=0;x<8;x++)
 		{
-			int bit=8*y+x;
+			unsigned bit=8*y+x;
 			if(bit==move)
 			{
 				fputs(BOLD,stdout);

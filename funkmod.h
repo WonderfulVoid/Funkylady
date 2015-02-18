@@ -24,6 +24,6 @@ STATIC void init_move_order(board brd); /* initialize move order with initial ta
 
 STATIC result_t endgame_search(board brd,color_t tomove,long targettime,evaluation_t);
 
-STATIC result_t iterative_deepening(board brd,color_t tomove,long targettime,long extratime,search_t,evaluation_t,bool randomsort);
+STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned targettime,unsigned extratime,search_t,evaluation_t,bool randomsort);
 
 #endif

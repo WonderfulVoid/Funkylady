@@ -47,7 +47,7 @@ typedef enum
 	a6=40,b6=41,c6=42,d6=43,e6=44,f6=45,g6=46,h6=47,
 	a7=48,b7=49,c7=50,d7=51,e7=52,f7=53,g7=54,h7=55,
 	a8=56,b8=57,c8=58,d8=59,e8=60,f8=61,g8=62,h8=63,
-	pass=64,none=65,quit=66,load=67 /* plus some extra values that are handy */
+	pass=64,none=65,quit=66,load=67,undef=255 /* plus some extra values that are handy */
 } move_t;
 
 STATIC bool init_tables(long cachesize);
@@ -72,7 +72,7 @@ STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t
 
 STATIC int endgame_alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove);
 
-STATIC int earlyeg_alfabeta(board brd,color_t tomove,long target);
+STATIC int earlyeg_alfabeta(board brd,color_t tomove,unsigned target);
 
 /* move order variables */
 extern uint8_t MOVES[2][64];	/* index -> move, the moves in priority order */
