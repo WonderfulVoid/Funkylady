@@ -179,6 +179,11 @@ STATIC __inline__ int first_bit_m(matrix m)
 
 static __inline__ int count_bits32(uint32_t lw)
 {
+#if defined __GNUC__ && (!defined __x86_64__ || defined __POPCNT__)
+	/* Only use GCC's builtin_popcount() on x86 if it can generate the POPCNT
+	 * instruction, GCC's SW emulation is slower than our code below */
+	return __builtin_popcount(lw);
+#else
     // count bits of each 2-bit chunk
     lw  = lw - ((lw >> 1) & 0x55555555);
     // count bits of each 4-bit chunk
@@ -189,6 +194,7 @@ static __inline__ int count_bits32(uint32_t lw)
     lw &= 0xF0F0F0F;
     // add all four 8-bit chunks
     return (lw * 0x01010101) >> 24;
+#endif
 }
 
 /*
@@ -197,17 +203,7 @@ static __inline__ int count_bits32(uint32_t lw)
 
 static __inline__ int count_bits64(bits64 ll)
 {
-#if 0
-	ll=(ll&0x5555555555555555ULL)+(ll>> 1&0x5555555555555555ULL);
-	ll=(ll&0x3333333333333333ULL)+(ll>> 2&0x3333333333333333ULL);
-	ll=(ll&0x0707070707070707ULL)+(ll>> 4&0x0707070707070707ULL);
-	ll=(ll&0x000f000f000f000fULL)+(ll>> 8&0x000f000f000f000fULL);
-	ll=(ll&0x0000001f0000001fULL)+(ll>>16&0x0000001f0000001fULL);
-	ll=(ll&0x000000000000003fU  )+(ll>>32&0x000000000000003fU  );
-	return ll;
-#else
     return count_bits32(LOWER(ll)) + count_bits32(UPPER(ll));
-#endif
 }
 
 /*
