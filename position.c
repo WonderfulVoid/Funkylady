@@ -192,9 +192,10 @@ STATIC bool load_position(char *filename,position_t *pos,bool parameters)
 			{
 				int len;
 				char buf[256];
-				fgets(buf,sizeof buf,file);
-				len=strlen(buf);
-				if(len>0 && buf[len-1]=='\n') buf[--len]=0;
+				/* Not enough to cast return value to (void), must actually
+				 * assign it in order to avoid warning */
+				char *rc = fgets(buf,sizeof buf,file);
+				(void)rc;
 				if(ferror(file))
 				{
 					fprintf(stderr,"error: could not read %sfile %s errno %d\n",parameters?"parameter ":"",filename,errno);
@@ -205,7 +206,9 @@ STATIC bool load_position(char *filename,position_t *pos,bool parameters)
 					success=true;
 					break;
 				}
-				else if(!parameters && strncmp(buf,"timestamp ",10)==0)
+				len=strlen(buf);
+				if(len>0 && buf[len-1]=='\n') buf[--len]=0;
+				if(!parameters && strncmp(buf,"timestamp ",10)==0)
 				{
 					pos->timestamp=atol(buf+10);
 				}

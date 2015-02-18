@@ -324,8 +324,10 @@ static move_t enter_move(position_t *pos,matrix legalmoves)
                 int len;
 		char buf[80];
 		printf("Enter your move: "); fflush(stdout);
-                (void)fgets(buf,sizeof buf,stdin);
-		if(feof(stdin)) return quit;
+		if (fgets(buf,sizeof buf,stdin)==NULL)
+		{
+			return quit;
+		}
                 len=strlen(buf);
                 while(len>0&&buf[len-1]<=' ') len--;
                 buf[len]='\0';
