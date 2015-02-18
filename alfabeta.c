@@ -170,7 +170,11 @@ STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits
 
 STATIC __inline__ int first_bit_m(matrix m)
 {
-        return ffsll(m) - 1;
+#ifdef __GNUC__
+	return __builtin_ffsll(m) - 1;
+#else
+	return ffsll(m) - 1;
+#endif
 }
 
 /*
