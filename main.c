@@ -144,7 +144,7 @@ static bool parse_cmdline(int argc,char *argv[],position_t *pos,int *frommove,bo
 				pos->humanname[sizeof pos->humanname-1]=0;
 				if(strlen(argv[i+1])>sizeof pos->humanname-1)
 				{
-					fprintf(stderr,"warning: opponent name '%s' too long, truncated to %u chars\n",argv[i+1],sizeof pos->humanname-1);
+					fprintf(stderr,"warning: opponent name '%s' too long, truncated to %zu chars\n",argv[i+1],sizeof pos->humanname-1);
 				}
 			}
 			else
