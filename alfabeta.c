@@ -165,7 +165,7 @@ STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits
 
 /*
 	return position of first occupied square of a matrix
-        LSB is 0.
+	LSB is 0.
 */
 
 STATIC __inline__ int first_bit_m(matrix m)
@@ -216,7 +216,7 @@ static __inline__ int count_bits64(bits64 ll)
 
 STATIC __inline__ int count_matrix(matrix m)
 {
-        return count_bits64(m);
+	return count_bits64(m);
 }
 
 STATIC __inline__ board swap_sides(board brd)
@@ -386,12 +386,12 @@ static __inline__ int disc_difference2(board brd,int ply)
 
 static __inline__ bits64 shiftr(bits64 b,int n)
 {
-        return b >> n;
+	return b >> n;
 }
 
 static __inline__ bits64 shiftl(bits64 b,int n)
 {
-        return b << n;
+	return b << n;
 }
 
 #if 0
@@ -589,7 +589,7 @@ STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t
 		1, 1, 0, 0, 0, 0, 1, 1
 	};
 #else
-        bits64 corner = 0xC3C300000000C3C3ULL;
+	bits64 corner = 0xC3C300000000C3C3ULL;
 #endif
 	int i,bestvalue=-INFINITY,Beta=beta,Alfa=alfa;
 	move_t bestmove = none;

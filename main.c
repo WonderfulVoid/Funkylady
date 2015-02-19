@@ -189,15 +189,15 @@ int main(int argc,char *argv[])
 	int frommove=-1;
 	bool dump=true;
 	printf("Welcome to Funkylady, the Othello contestor\n"
-		  "Copyright 1993 Ola Liljedahl, all rights reserved\n");
-		load_position("funky.param",&pos,true); /* initialize and load default evaluation parameters */
-		if(parse_cmdline(argc,argv,&pos,&frommove,&dump) && init_tables(pos.cachesize))
-		{
-			srand(real_time());
-			if(!pos.deterministic) srand(real_time());
-			if(frommove>=0) replay_moves(&pos,frommove);
-			if(play_game(&pos) && dump) dump_position(&pos);
-			ret = 0;
-		}
+		   "Copyright 1993 Ola Liljedahl, all rights reserved\n");
+	load_position("funky.param",&pos,true); /* initialize and load default evaluation parameters */
+	if(parse_cmdline(argc,argv,&pos,&frommove,&dump) && init_tables(pos.cachesize))
+	{
+		srand(real_time());
+		if(!pos.deterministic) srand(real_time());
+		if(frommove>=0) replay_moves(&pos,frommove);
+		if(play_game(&pos) && dump) dump_position(&pos);
+		ret = 0;
+	}
 	return ret;
 }

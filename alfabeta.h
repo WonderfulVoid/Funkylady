@@ -56,17 +56,17 @@ STATIC void set_input(evaluation_t eval,int discs,int maxply,int ssdepth,bool wi
 
 STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits,long *accesses);
 
-STATIC int first_bit_m(matrix)					__attribute__ ((const));
+STATIC int first_bit_m(matrix) __attribute__ ((const));
 
-STATIC matrix new_black_discs(board brd,move_t move)		__attribute__ ((const));
+STATIC matrix new_black_discs(board brd,move_t move) __attribute__ ((const));
 
-STATIC board flip_discs(board brd,matrix newdiscs)		__attribute__ ((const));
+STATIC board flip_discs(board brd,matrix newdiscs) __attribute__ ((const));
 
-STATIC board swap_sides(board brd)				__attribute__ ((const));
+STATIC board swap_sides(board brd) __attribute__ ((const));
 
-STATIC int count_matrix(matrix)				__attribute__ ((const));
+STATIC int count_matrix(matrix) __attribute__ ((const));
 
-STATIC bool legal_move(board brd,move_t move)			__attribute__ ((const));
+STATIC bool legal_move(board brd,move_t move) __attribute__ ((const));
 
 STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove,int cornermove);
 

@@ -246,8 +246,8 @@ STATIC void replay_moves(position_t *pos,int frommove)
 	if(count_matrix(pos->brade.black)+count_matrix(pos->brade.white)-4==validmoves)
 	{
 		int movenr;
-                pos->brade.black = 1<<28|1ULL<<35;
-                pos->brade.white = 1<<27|1ULL<<36;
+		pos->brade.black = 1<<28|1ULL<<35;
+		pos->brade.white = 1<<27|1ULL<<36;
 		pos->humantime=0;
 		pos->computertime=0;
 		pos->turntomove=black;
@@ -321,16 +321,16 @@ static move_t enter_move(position_t *pos,matrix legalmoves)
 {
 	for(;;)
 	{
-                int len;
+		int len;
 		char buf[80];
 		printf("Enter your move: "); fflush(stdout);
 		if (fgets(buf,sizeof buf,stdin)==NULL)
 		{
 			return quit;
 		}
-                len=strlen(buf);
-                while(len>0&&buf[len-1]<=' ') len--;
-                buf[len]='\0';
+		len=strlen(buf);
+		while(len>0&&buf[len-1]<=' ') len--;
+		buf[len]='\0';
 		if(strcmp(buf,"quit")==0) return quit;
 		else if(strcmp(buf,"?")==0)
 		{
@@ -473,7 +473,7 @@ static move_t computer_move(position_t *pos)
 #if 0
 			else if(index>=5)
 #else
-                        else
+			else
 #endif
 			{
 				int target=pos->targettime/60;

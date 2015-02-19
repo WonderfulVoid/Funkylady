@@ -94,8 +94,8 @@ STATIC bool save_position(char *filename,position_t *pos)
 										break;
 						case potmobility : str="potmobility";
 										break;
-					        case dummyeval: 
-                                                                                break;
+						case dummyeval:
+										break;
 					}
 					fprintf(file,"%s %d\n",str,i+1);
 				}

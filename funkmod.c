@@ -260,11 +260,11 @@ STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned target,uns
 			else		printf("%2d  %2d  %c%c %5d %6lu %3lu%%  ~0\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0);
 		}
 		if(BESTMOVE==undef)
-                {
-                    fprintf(stderr, "BESTMOVE==undef\n");
-                    abort();
-                    break;
-                }
+		{
+			fprintf(stderr, "BESTMOVE==undef\n");
+			abort();
+			break;
+		}
 
 		if(extra && maxply<last && cpu_time()-start>=target*2/3 && bestvalue<prevbv && bestvalue<prevbv-abs(prevbv)/2 && cpu_time()-start<(target+extra)*2/3)
 		{
