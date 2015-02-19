@@ -209,8 +209,8 @@ STATIC result_t endgame_search(board brd,color_t tomove,long target,evaluation_t
 			move[1]='-';
 		}
 		move[2]=0;
-		printf("ply ss  bm  value nodes  time  nodes/s\n");
-		if(elapsed) printf("%2d  %2d  %s %5d %6lu %3lu.%02lu   %4lu\n",maxply,0,move,bestvalue,ABCALLS,elapsed/100,elapsed%100,100*ABCALLS/elapsed);
+		printf("ply ss  bm  value   nodes  time   nodes/s\n");
+		if(elapsed) printf("%2d  %2d  %s %5d %8lu %3lu.%02lu  %7lu\n",maxply,0,move,bestvalue,ABCALLS,elapsed/100,elapsed%100,100*ABCALLS/elapsed);
 		else		printf("%2d  %2d  %s %5d %6lu  ~0\n",maxply,0,move,bestvalue,ABCALLS);
 	}
 
@@ -236,7 +236,7 @@ STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned target,uns
 	remove_played_moves(brd);
 
 	printf("Search time target %u.%02u secs\n",target/100,target%100);
-	printf("ply ss  bm  value nodes hits  time  nodes/s\n");
+	printf("ply ss  bm  value   nodes hits  time   nodes/s\n");
 
 	for(maxply=first;maxply<=last && (cpu_time()-start)<target*2/3;maxply++)
 	{
@@ -256,8 +256,8 @@ STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned target,uns
 			result.nodes+=ABCALLS;
 			result.depth=maxply;
 
-			if(elapsed) printf("%2d  %2d  %c%c %5d %6lu %3lu%% %3lu.%02lu   %4lu\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0,elapsed/100,elapsed%100,100*ABCALLS/elapsed);
-			else		printf("%2d  %2d  %c%c %5d %6lu %3lu%%  ~0\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0);
+			if(elapsed) printf("%2d  %2d  %c%c %5d %8lu %3lu%% %3lu.%02lu  %7lu\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0,elapsed/100,elapsed%100,100*ABCALLS/elapsed);
+			else		printf("%2d  %2d  %c%c %5d %8lu %3lu%%  ~0\n",maxply,mode==secondary?SSDEPTH:0,BESTMOVE%8+'a',BESTMOVE/8+'1',bestvalue,ABCALLS,ACCESSES?100*HITS/ACCESSES:0);
 		}
 		if(BESTMOVE==undef)
 		{
