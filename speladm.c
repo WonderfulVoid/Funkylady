@@ -16,13 +16,11 @@
 #include "movetable.h"
 #include "times.h"
 
-static int max(int a,int b) __attribute__ ((const));
 static __inline__ int max(int a,int b)
 {
 	return a>b ? a : b ;
 }
 
-static int min(int a,int b) __attribute__ ((const));
 static __inline__ int min(int a,int b)
 {
 	return a<b ? a : b ;

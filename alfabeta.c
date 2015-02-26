@@ -46,13 +46,11 @@ static move_t BESTMOVE;	/* contains the best alfabeta move after an alfabeta sea
 static bool EARLYEXIT;	/* someone tries to tell us search was terminated early */
 static long ABCALLS;	/* number of alfabeta calls = total number of nodes */
 
-static int sign(int v) __attribute__ ((const));
 static __inline__ int sign(int v)
 {
 	return v<0 ? -1 : v>0 ? 1 : 0 ;
 }
 
-static int absval(int v) __attribute__ ((const));
 static __inline__ int absval(int v)
 {
 	return v<0 ? -v : v ;
