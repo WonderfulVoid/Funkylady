@@ -497,7 +497,7 @@ static move_t computer_move(position_t *pos)
 			}
 #endif
 			move=r.bestmove;
-			if(move<0 || move>63)
+			if(move>63)
 			{
 				fprintf(stderr,"error: search returned no valid move\n");
 				return quit;
