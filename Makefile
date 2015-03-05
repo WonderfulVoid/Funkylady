@@ -93,7 +93,7 @@ GCCROOT = /opt/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux
 GCCSETUP = PATH=$(GCCROOT)/bin:$(GCCROOT)/$(GCCTARGET)/bin:/bin:/usr/bin
 CC = $(GCCSETUP) $(GCCROOT)/bin/$(GCCTARGET)-gcc
 CXX = $(GCCSETUP) $(GCCROOT)/bin/$(GCCTARGET)-g++
-LD = $(GCCSETUP) $(GCCROOT)/bin/$(GCCTARGET)-g++
+LD = $(GCCSETUP) $(GCCROOT)/bin/$(GCCTARGET)-gcc
 else
 #Native compilation
 ifeq ($(CLANG),yes)
@@ -105,7 +105,7 @@ else
 CC = gcc
 CXX = g++
 AS = as
-LD = g++
+LD = gcc
 endif
 endif
 BIN2C = bin2c
