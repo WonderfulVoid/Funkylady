@@ -13,7 +13,7 @@ DIRNAME = Funkylady
 #List of executable files to build
 TARGETS = funkylady
 #List object files for each target
-OBJECTS_funkylady = alfabeta.o funkmod.o main.o movetable.o normalize.o position.o speladm.o times.o
+OBJECTS_funkylady = alfabeta.o funkmod.o main.o normalize.o position.o speladm.o times.o
 
 #Customizable compiler and linker flags
 GCCTARGET =

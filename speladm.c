@@ -13,7 +13,6 @@
 #include "speladm.h"
 #include "position.h"
 #include "funkmod.h"
-#include "movetable.h"
 #include "times.h"
 
 static __inline__ int max(int a,int b)
@@ -485,17 +484,6 @@ static move_t computer_move(position_t *pos)
 				}
 				r=iterative_deepening(pos->brade,pos->computer,100*target,100*extra,secondary,thys,!pos->deterministic);
 			}
-#if 0
-			else
-			{
-				r.bestmove=table_move(pos->brade);
-				if(r.bestmove<0 || r.bestmove>=64 || !GETBIT(lm,r.bestmove))
-				{
-					if(r.bestmove>=0 && r.bestmove<64) printf("table_move generated illegal move %c%c\n",r.bestmove%8+'a',r.bestmove/8+'1');
-					r=iterative_deepening(pos->brade,pos->computer,100*pos->targettime/60,0,normal,pos->eval[index],!pos->deterministic);
-				}
-			}
-#endif
 			move=r.bestmove;
 			if(move>63)
 			{
