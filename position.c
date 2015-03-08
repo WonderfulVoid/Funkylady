@@ -34,7 +34,7 @@ static void write_board(FILE *file,board brade)
 	}
 }
 
-STATIC bool save_position(char *filename,position_t *pos)
+bool save_position(char *filename,position_t *pos)
 {
 	for(;;)
 	{
@@ -192,7 +192,7 @@ static bool read_board(FILE *file,board *brade)
 	return true;
 }
 
-STATIC bool load_position(char *filename,position_t *pos,bool parameters)
+bool load_position(char *filename,position_t *pos,bool parameters)
 {
 	int i=0;
 	pos->timestamp=real_time();

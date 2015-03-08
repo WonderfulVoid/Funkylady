@@ -25,8 +25,8 @@ typedef struct
 	char computername[20],humanname[20];
 } position_t;
 
-STATIC bool save_position(char *filename,position_t *pos);
+bool save_position(char *filename,position_t *pos);
 
-STATIC bool load_position(char *filename,position_t *pos,bool parameters);
+bool load_position(char *filename,position_t *pos,bool parameters);
 
 #endif

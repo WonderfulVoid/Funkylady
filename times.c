@@ -12,7 +12,7 @@
 	return real time, unit is 0.01 s (actual resolution is OS dependent)
 */
 
-STATIC unsigned long real_time(void)
+unsigned long real_time(void)
 {
 	struct timeval tv;
 	gettimeofday(&tv, 0);
@@ -23,7 +23,7 @@ STATIC unsigned long real_time(void)
 	return used CPU time, unit is 0.01 s (actual resolution is OS dependent)
 */
 
-STATIC unsigned long cpu_time(void)
+unsigned long cpu_time(void)
 {
 	return clock() / (CLOCKS_PER_SEC / 100);
 }

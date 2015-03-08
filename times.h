@@ -9,12 +9,12 @@
 	return real time, unit is 0.01 s (actual resolution is OS dependent)
 */
 
-STATIC unsigned long real_time(void);
+unsigned long real_time(void);
 
 /*
 	return used CPU time, unit is 0.01 s (actual resolution is OS dependent)
 */
 
-STATIC unsigned long cpu_time(void);
+unsigned long cpu_time(void);
 
 #endif

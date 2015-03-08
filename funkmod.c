@@ -53,7 +53,7 @@ static void sanity_checks(board brd,color_t tomove)
 	initialize order from the static table
 */
 
-STATIC void init_move_order(board brd)
+void init_move_order(board brd)
 {
 	int i,nummoves=0;
 	matrix occupied;
@@ -163,7 +163,7 @@ static void sort_move_arrays(board brd,bool random)
 	sanity_checks(brd,white);
 }
 
-STATIC result_t endgame_search(board brd,color_t tomove,long target,evaluation_t eval)
+result_t endgame_search(board brd,color_t tomove,long target,evaluation_t eval)
 {
 	result_t result;
 	unsigned long start=cpu_time(),elapsed;
@@ -219,7 +219,7 @@ STATIC result_t endgame_search(board brd,color_t tomove,long target,evaluation_t
 	return result;
 }
 
-STATIC result_t iterative_deepening(board brd,color_t tomove,unsigned target,unsigned extra,search_t mode,evaluation_t eval,bool randomsort)
+result_t iterative_deepening(board brd,color_t tomove,unsigned target,unsigned extra,search_t mode,evaluation_t eval,bool randomsort)
 {
 #define SSDEPTH 2
 	result_t result;

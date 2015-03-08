@@ -232,7 +232,7 @@ static board play_move(board brd,move_t move,color_t tomove)
 	[0..frommove-1] in internal coodinates
 */
 
-STATIC void replay_moves(position_t *pos,int frommove)
+void replay_moves(position_t *pos,int frommove)
 {
 	int i,validmoves=0;
 	for(i=0;i<pos->nummoves;i++)
@@ -507,7 +507,7 @@ static move_t computer_move(position_t *pos)
 	return move;
 }
 
-STATIC bool play_game(position_t *pos)
+bool play_game(position_t *pos)
 {
 	bool success;
 	print_info(pos,pos->nummoves ? pos->moves[pos->nummoves-1] : pass);

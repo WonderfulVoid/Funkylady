@@ -49,29 +49,29 @@ typedef enum
 	pass=64,none=65,quit=66,load=67,undef=255 /* plus some extra values that are handy */
 } move_t;
 
-STATIC bool init_tables(long cachesize);
+bool init_tables(long cachesize);
 
-STATIC void set_input(evaluation_t eval,int discs,int maxply,int ssdepth,bool winloss);
+void set_input(evaluation_t eval,int discs,int maxply,int ssdepth,bool winloss);
 
-STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits,long *accesses);
+void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits,long *accesses);
 
-STATIC int first_bit_m(matrix);
+int first_bit_m(matrix);
 
-STATIC matrix new_black_discs(board brd,move_t move);
+matrix new_black_discs(board brd,move_t move);
 
-STATIC board flip_discs(board brd,matrix newdiscs);
+board flip_discs(board brd,matrix newdiscs);
 
-STATIC board swap_sides(board brd);
+board swap_sides(board brd);
 
-STATIC int count_matrix(matrix);
+int count_matrix(matrix);
 
-STATIC bool legal_move(board brd,move_t move);
+bool legal_move(board brd,move_t move);
 
-STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove,int cornermove);
+int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove,int cornermove);
 
-STATIC int endgame_alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove);
+int endgame_alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove);
 
-STATIC int earlyeg_alfabeta(board brd,color_t tomove,unsigned target);
+int earlyeg_alfabeta(board brd,color_t tomove,unsigned target);
 
 /* move order variables */
 extern uint8_t MOVES[2][64];	/* index -> move, the moves in priority order */

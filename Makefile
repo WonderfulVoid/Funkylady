@@ -22,7 +22,7 @@ DEFINE += -DNDEBUG#disable assertion
 endif
 CCFLAGS += -std=c99
 CCFLAGS += -g -ggdb -W -Wall -Wextra
-DEFINE += -DSTATIC= -DLITTLE_ENDIAN
+DEFINE += -DLITTLE_ENDIAN
 ifneq ($(DEBUG),yes)
 CCFLAGS += -O2
 endif

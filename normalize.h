@@ -7,10 +7,10 @@
 
 #include "alfabeta.h"
 
-STATIC move_t transform_move(move_t move,int tf);
+move_t transform_move(move_t move,int tf);
 
-STATIC move_t inverse_transform_move(move_t move,int tf);
+move_t inverse_transform_move(move_t move,int tf);
 
-STATIC int normalize_board(board *pos);
+int normalize_board(board *pos);
 
 #endif

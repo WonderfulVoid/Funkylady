@@ -10,8 +10,8 @@
 extern char *PIPEIN;
 extern char *PIPEOUT;
 
-STATIC void replay_moves(position_t *pos,int frommove /* 0..59 */ );
+void replay_moves(position_t *pos,int frommove /* 0..59 */ );
 
-STATIC bool play_game(position_t *pos);
+bool play_game(position_t *pos);
 
 #endif

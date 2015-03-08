@@ -7,7 +7,7 @@
 #define MOVE(r,c) (8*(r)+(c))
 #define SWAP(a,b) { int _t_=a; a=b; b=_t_; }
 
-STATIC move_t transform_move(move_t move,int tf)
+move_t transform_move(move_t move,int tf)
 {
 	int row=move/8;
 	int col=move%8;
@@ -22,7 +22,7 @@ STATIC move_t transform_move(move_t move,int tf)
 	return 0; /* NOTREACHED */
 }
 
-STATIC move_t inverse_transform_move(move_t move,int tf)
+move_t inverse_transform_move(move_t move,int tf)
 {
 	int y=move/8;
 	int x=move%8;
@@ -50,7 +50,7 @@ STATIC move_t inverse_transform_move(move_t move,int tf)
 	return MOVE(row,col);
 }
 
-STATIC int normalize_board(board *pos)
+int normalize_board(board *pos)
 {
 	board b[8];				/* all 8 transformed bitboards */
 	int mintf,tf,row,col;

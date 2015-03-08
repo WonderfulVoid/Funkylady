@@ -69,7 +69,7 @@ static __inline__ int absval(int v)
 	initialize RAY,NBS,FLIP
 */
 
-STATIC bool init_tables(long cachesize)
+bool init_tables(long cachesize)
 {
 	int i;
 	(void)cachesize;
@@ -156,7 +156,7 @@ STATIC bool init_tables(long cachesize)
 	return true;
 }
 
-STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits,long *accesses)
+void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits,long *accesses)
 {
 	*bestmove=BESTMOVE;
 	*earlyexit=EARLYEXIT;
@@ -170,7 +170,7 @@ STATIC void get_output(move_t *bestmove,bool *earlyexit,long *abcalls,long *hits
 	LSB is 0.
 */
 
-STATIC __inline__ int first_bit_m(matrix m)
+__inline__ int first_bit_m(matrix m)
 {
 #ifdef __GNUC__
 	return __builtin_ffsll(m) - 1;
@@ -216,12 +216,12 @@ static __inline__ int count_bits64(bits64 ll)
 	count number of set bits in a matrix
 */
 
-STATIC __inline__ int count_matrix(matrix m)
+__inline__ int count_matrix(matrix m)
 {
 	return count_bits64(m);
 }
 
-STATIC __inline__ board swap_sides(board brd)
+__inline__ board swap_sides(board brd)
 {
 	board revb;
 	revb.black=brd.white;
@@ -235,7 +235,7 @@ STATIC __inline__ board swap_sides(board brd)
 	(all legal moves turn at least one disc...)
 */
 
-STATIC __inline__ matrix new_black_discs(board brd,move_t move)
+__inline__ matrix new_black_discs(board brd,move_t move)
 {
 	matrix newdiscs=EMPTY;
 	if(GETBIT(brd.black,move)==0 && GETBIT(brd.white,move)==0 && NBS[move]&brd.white)
@@ -264,7 +264,7 @@ STATIC __inline__ matrix new_black_discs(board brd,move_t move)
 	turn the specified discs on a board
 */
 
-STATIC __inline__ board flip_discs(board brd,matrix newdiscs)
+__inline__ board flip_discs(board brd,matrix newdiscs)
 {
 	brd.black|=newdiscs;
 	brd.white&=~newdiscs;
@@ -275,7 +275,7 @@ STATIC __inline__ board flip_discs(board brd,matrix newdiscs)
 	return true if legal move
 */
 
-STATIC __inline__ bool legal_move(board brd,move_t move)
+__inline__ bool legal_move(board brd,move_t move)
 {
 	if(GETBIT(brd.black,move)==0 && GETBIT(brd.white,move)==0 && (NBS[move]&brd.white))
 	{
@@ -549,7 +549,7 @@ static __inline__ int potential_mobility(board brd)
 #undef POTMOBSNOMASK
 }
 
-STATIC void set_input(evaluation_t eval,int discs,int maxply,int ssdepth,bool winloss)
+void set_input(evaluation_t eval,int discs,int maxply,int ssdepth,bool winloss)
 {
 	if(eval!=EVAL)
 	{
@@ -576,7 +576,7 @@ static int evaluate(board brd)
 	return potential_mobility(brd)+corner_values(brd);
 }
 
-STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove,int cornermove)
+int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove,int cornermove)
 {
 #if 0
 	static const uint8_t corner[64]=
@@ -662,7 +662,7 @@ STATIC int alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t
 	return bestvalue;
 }
 
-STATIC int endgame_alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove)
+int endgame_alfabeta(board brd,int ply,int alfa,int beta,bool otherpassed,color_t tomove)
 {
 	int i,bestvalue=-INFINITY,Beta=beta,Alfa=alfa;
 	uint8_t *moves=MOVES[tomove];
@@ -783,7 +783,7 @@ static int _earlyeg_alfabeta(board brd,int ply,int alfa,int beta,bool otherpasse
 	return bestvalue;
 }
 
-STATIC int earlyeg_alfabeta(board brd,color_t tomove,unsigned target)
+int earlyeg_alfabeta(board brd,color_t tomove,unsigned target)
 {
 	unsigned long start=cpu_time();
 	const int alfa=-INFINITY,beta=INFINITY;
