@@ -29,8 +29,8 @@ typedef struct
 } board;
 
 /* some matrix operations */
-#define SETBIT(m,b) { (m)|=1ULL<<(b); }
-#define INVBIT(m,b) { (m)^=1ULL<<(b); }
+#define SETBIT(m,b) do { (m)|=1ULL<<(b); } while (0)
+#define INVBIT(m,b) do { (m)^=1ULL<<(b); } while (0)
 #define GETBIT(m,b) ( ((m)>>(b))&1 )
 #define LOWER(m) (uint32_t)((m) >> 32)
 #define UPPER(m) (uint32_t)(m)

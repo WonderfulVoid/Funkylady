@@ -88,14 +88,14 @@ STATIC bool init_tables(long cachesize)
 	{
 		int x,y;
 		matrix m=EMPTY;
-		for(x=i%8,y=i/8;--x>=0;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;++x<=7;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;--y>=0;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;++y<=7;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;--x>=0&&--y>=0;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;++x<=7&&--y>=0;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;--x>=0&&++y<=7;) SETBIT(m,8*y+x)
-		for(x=i%8,y=i/8;++x<=7&&++y<=7;) SETBIT(m,8*y+x)
+		for(x=i%8,y=i/8;--x>=0;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;++x<=7;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;--y>=0;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;++y<=7;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;--x>=0&&--y>=0;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;++x<=7&&--y>=0;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;--x>=0&&++y<=7;) SETBIT(m,8*y+x);
+		for(x=i%8,y=i/8;++x<=7&&++y<=7;) SETBIT(m,8*y+x);
 		RAY[i]=m;
 	}
 	for(i=0;i<64;i++)
@@ -105,14 +105,14 @@ STATIC bool init_tables(long cachesize)
 		bool u=i>=8;
 		bool d=i<56;
 		matrix m=EMPTY;
-		if(l) SETBIT(m,i-1)
-		if(r) SETBIT(m,i+1)
-		if(u) SETBIT(m,i-8)
-		if(d) SETBIT(m,i+8)
-		if(l&&u) SETBIT(m,i-1-8)
-		if(r&&u) SETBIT(m,i+1-8)
-		if(l&&d) SETBIT(m,i-1+8)
-		if(r&&d) SETBIT(m,i+1+8)
+		if(l) SETBIT(m,i-1);
+		if(r) SETBIT(m,i+1);
+		if(u) SETBIT(m,i-8);
+		if(d) SETBIT(m,i+8);
+		if(l&&u) SETBIT(m,i-1-8);
+		if(r&&u) SETBIT(m,i+1-8);
+		if(l&&d) SETBIT(m,i-1+8);
+		if(r&&d) SETBIT(m,i+1+8);
 		NBS[i]=m;
 	}
 	for(i=0;i<64;i++)
@@ -125,14 +125,14 @@ STATIC bool init_tables(long cachesize)
 			if(ri==rj) /* same row */
 			{
 				int k;
-				if(ki<kj) for(k=ki+1;k<kj;k++) SETBIT(m,8*ri+k)
-				else if(ki>kj) for(k=ki-1;k>kj;k--) SETBIT(m,8*ri+k)
+				if(ki<kj) for(k=ki+1;k<kj;k++) SETBIT(m,8*ri+k);
+				else if(ki>kj) for(k=ki-1;k>kj;k--) SETBIT(m,8*ri+k);
 			}
 			else if(ki==kj) /* same column */
 			{
 				int r;
-				if(ri<rj) for(r=ri+1;r<rj;r++) SETBIT(m,8*r+ki)
-				else if(ri>rj) for(r=ri-1;r>rj;r--) SETBIT(m,8*r+ki)
+				if(ri<rj) for(r=ri+1;r<rj;r++) SETBIT(m,8*r+ki);
+				else if(ri>rj) for(r=ri-1;r>rj;r--) SETBIT(m,8*r+ki);
 			}
 			else
 			{
@@ -143,7 +143,7 @@ STATIC bool init_tables(long cachesize)
 					int sr=sign(dr);
 					int sk=sign(dk);
 					int r,k;
-					for(r=rj+sr,k=kj+sk;r!=ri && k!=ki;r+=sr,k+=sk) SETBIT(m,8*r+k)
+					for(r=rj+sr,k=kj+sk;r!=ri && k!=ki;r+=sr,k+=sk) SETBIT(m,8*r+k);
 				}
 			}
 			FLIP[i][j]=m;

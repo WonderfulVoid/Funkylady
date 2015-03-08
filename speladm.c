@@ -303,7 +303,7 @@ static matrix legal_moves(board brd,color_t tomove)
 	if(tomove!=black) brd=swap_sides(brd);
 	for(i=0;i<64;i++)
 	{
-		if(legal_move(brd,i)) SETBIT(m,i)
+		if(legal_move(brd,i)) SETBIT(m,i);
 	}
 	return m;
 }

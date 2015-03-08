@@ -170,11 +170,11 @@ static bool read_board(FILE *file,board *brade)
 			{
 				case 'x' :
 				case 'X' :
-					SETBIT(brade->black,8*row+col)
+					SETBIT(brade->black,8*row+col);
 					break;
 				case 'o' :
 				case 'O' :
-					SETBIT(brade->white,8*row+col)
+					SETBIT(brade->white,8*row+col);
 					break;
 				case '.' :
 				case ' ' :
