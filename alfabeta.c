@@ -190,15 +190,15 @@ static __inline__ int count_bits32(uint32_t lw)
 	 * instruction, GCC's SW emulation is slower than our code below */
 	return __builtin_popcount(lw);
 #else
-    // count bits of each 2-bit chunk
+    /* count bits of each 2-bit chunk */
     lw  = lw - ((lw >> 1) & 0x55555555);
-    // count bits of each 4-bit chunk
+    /* count bits of each 4-bit chunk */
     lw  = (lw & 0x33333333) + ((lw >> 2) & 0x33333333);
-    // count bits of each 8-bit chunk
+    /* count bits of each 8-bit chunk */
     lw  = lw + (lw >> 4);
-    // mask out junk
+    /* mask out junk */
     lw &= 0xF0F0F0F;
-    // add all four 8-bit chunks
+    /* add all four 8-bit chunks */
     return (lw * 0x01010101) >> 24;
 #endif
 }
