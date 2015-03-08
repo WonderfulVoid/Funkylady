@@ -2,7 +2,6 @@
  * Copyright 1993 Ola Liljedahl
  */
 
-#define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
