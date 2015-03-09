@@ -7,10 +7,6 @@
 
 #include <stdint.h>
 
-#ifndef __GNUC__
-#define __inline__
-#endif
-
 #define INFINITY 30000	/* a value larger than ALL values from the evaluation */
 
 typedef enum { false=0, true=1 } bool;

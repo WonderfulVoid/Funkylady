@@ -14,6 +14,7 @@
 #else
 #define likely(x)   (x)
 #define unlikely(x) (x)
+#define __inline__
 #endif
 
 #define EMPTY 0
