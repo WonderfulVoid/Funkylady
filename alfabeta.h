@@ -18,10 +18,6 @@ typedef enum { false=0, true=1 } bool;
 typedef uint64_t bits64;
 typedef bits64 matrix;
 
-#define AND(a,b) ((a)&(b))
-#define OR(a,b) ((a)|(b))
-#define ZERO(a) !(a)
-
 typedef struct
 {
 	matrix black,white;
