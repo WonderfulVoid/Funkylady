@@ -8,7 +8,7 @@
 #include "funkmod.h"
 #include "times.h"
 
-static __inline__ bool bool_random(void)
+static bool bool_random(void)
 {
 	return rand()&1;
 }

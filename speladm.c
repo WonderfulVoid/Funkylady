@@ -15,12 +15,12 @@
 #include "funkmod.h"
 #include "times.h"
 
-static __inline__ int max(int a,int b)
+static int max(int a,int b)
 {
 	return a>b ? a : b ;
 }
 
-static __inline__ int min(int a,int b)
+static int min(int a,int b)
 {
 	return a<b ? a : b ;
 }
