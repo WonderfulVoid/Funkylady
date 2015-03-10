@@ -2,6 +2,10 @@
  * Copyright 1993 Ola Liljedahl
  */
 
+#include <unistd.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,11 +15,54 @@
 #include "funkmod.h"
 #include "times.h"
 
+static const char *PIPEIN;
+static const char *PIPEOUT;
+
 static void dump_position(position_t *pos)
 {
 	char filename[40];
 	sprintf(filename,"dump.%lu",real_time());
 	save_position(filename,pos);
+}
+
+static void create_pipe(const char *name)
+{
+	int rc = mkfifo(name,S_IRUSR|S_IWUSR);
+	if (rc != 0 && errno != EEXIST)
+	{
+		fprintf(stderr,"error creating fifo \"%s\" errno %u %s\n",
+				name,errno,strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+}
+
+static int open_pipe(const char *name, int flags)
+{
+	int fd=open(name,flags,0);
+	if(fd<0)
+	{
+		fprintf(stderr,"error opening fifo \"%s\" errno %u %s\n",
+				name,errno,strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	return fd;
+}
+
+static void open_pipes(const char *input, const char *output)
+{
+	create_pipe(input);
+	create_pipe(output);
+	/* Ensure peers open pipes in matching order to avoid deadlock */
+	if (strcmp(input,output) < 0)
+	{
+		pipein=open_pipe(input,O_RDONLY);
+		pipeout=open_pipe(output,O_WRONLY);
+	}
+	else
+	{
+		pipeout=open_pipe(output,O_WRONLY);
+		pipein=open_pipe(input,O_RDONLY);
+	}
 }
 
 static bool parse_cmdline(int argc,char *argv[],position_t *pos,int *frommove,bool *dump)
@@ -165,6 +212,7 @@ static bool parse_cmdline(int argc,char *argv[],position_t *pos,int *frommove,bo
 			{
 				PIPEIN=argv[i+1];
 				PIPEOUT=argv[i+2];
+				open_pipes(PIPEIN, PIPEOUT);
 			}
 			else
 			{
@@ -198,6 +246,23 @@ int main(int argc,char *argv[])
 		if(frommove>=0) replay_moves(&pos,frommove);
 		if(play_game(&pos) && dump) dump_position(&pos);
 		ret = 0;
+	}
+	/* We are lax with error checks when cleaning up before exit */
+	if (pipein != -1)
+	{
+		(void)close(pipein);
+	}
+	if (pipeout != -1)
+	{
+		(void)close(pipeout);
+	}
+	if (PIPEIN != NULL)
+	{
+		(void)remove(PIPEIN);
+	}
+	if (PIPEOUT != NULL)
+	{
+		(void)remove(PIPEIN);
 	}
 	return ret;
 }

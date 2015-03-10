@@ -8,8 +8,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <errno.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 #include "speladm.h"
 #include "position.h"
 #include "funkmod.h"
@@ -102,10 +100,8 @@ static void print_board(board brade,move_t move)
 	printf("    a b c d e f g h\n");
 }
 
-static int pipein=-1;
-static int pipeout=-1;
-char *PIPEIN;
-char *PIPEOUT;
+int pipein=-1;
+int pipeout=-1;
 
 static void writemove(move_t move)
 {
@@ -124,70 +120,49 @@ static void writemove(move_t move)
 		buf[2]='\n';
 		buf[3]='\0';
 	}
-	if (pipeout == -1)
-	{
-		pipeout=open(PIPEOUT,O_WRONLY | O_APPEND | O_CREAT | O_TRUNC | O_EXCL, S_IRUSR | S_IWUSR);
-		if(pipeout == -1)
-		{
-			fprintf(stderr,"error opening pipe \"%s\" errno %u %s\n",PIPEOUT,errno,strerror(errno));
-			exit(20); /* ok */
-		}
-	}
 	if(write(pipeout,buf,strlen(buf))<0)
 	{
-		fprintf(stderr,"error writing pipe \"%s\" errno %u %s\n",PIPEOUT,errno,strerror(errno));
-		exit(20); /* ok */
+		fprintf(stderr,"error writing pipe errno %u %s\n",errno,strerror(errno));
+		exit(EXIT_FAILURE);
 	}
 }
 
 static move_t readmove(matrix lm)
 {
-	while(pipein==-1)
+	char buf[4];
+	int row,col,move,len;
+	len=read(pipein,buf,3);
+	if(len<0)
 	{
-		pipein=open(PIPEIN,O_RDONLY,0);
-		if(pipein==-1 && errno!=ENOENT)
-		{
-			fprintf(stderr,"error opening pipe \"%s\" errno %u %s\n",PIPEIN,errno,strerror(errno));
-			exit(20); /* ok */
-		}
-		sleep(1);
+		fprintf(stderr,"error reading pipe errno %u %s\n",errno,strerror(errno));
+		exit(EXIT_FAILURE);
 	}
+	else if(len == 0)
 	{
-		char buf[4];
-		int row,col,move,len;
-		for(;;)
-		{
-			len=read(pipein,buf,3);
-			if(len>0) break;
-			if(len<0)
-			{
-				fprintf(stderr,"error reading pipe \"%s\" errno %u %s\n",PIPEIN,errno,strerror(errno));
-				exit(20); /* ok */
-			}
-			sleep(1);
-		}
-		buf[len]=0;
-		if(strcmp(buf,"ps")==0)
-		{
-			if(count_matrix(lm)==0) return pass;
-			fprintf(stderr,"error: invalid pass\n");
-			exit(20); /* ok */
-		}
-		col=buf[0]-'a';
-		row=buf[1]-'1';
-		if(col<0 || col>7 || row<0 || row>7)
-		{
-			fprintf(stderr,"garbage %s\n",buf);
-			return readmove(lm);
-		}
-		move=8*row+col;
-		if(GETBIT(lm,move)==0)
-		{
-			fprintf(stderr,"error: invalid move %s\n",buf);
-			exit(20); /* ok */
-		}
-		return move;
+		fprintf(stderr,"pipe closed at other end\n");
+		exit(EXIT_FAILURE);
 	}
+	buf[len]=0;
+	if(strcmp(buf,"ps\n")==0)
+	{
+		if(count_matrix(lm)==0) return pass;
+		fprintf(stderr,"error: invalid pass\n");
+		exit(EXIT_FAILURE);
+	}
+	col=buf[0]-'a';
+	row=buf[1]-'1';
+	if(col<0 || col>7 || row<0 || row>7)
+	{
+		fprintf(stderr,"garbage %s\n",buf);
+		return readmove(lm);
+	}
+	move=8*row+col;
+	if(GETBIT(lm,move)==0)
+	{
+		fprintf(stderr,"error: invalid move %s\n",buf);
+		exit(EXIT_FAILURE);
+	}
+	return move;
 }
 
 static char *find_argument(char *str,char **ptr)
@@ -422,7 +397,7 @@ static move_t human_move(position_t *pos)
 			break;
 		}
 	}
-	return PIPEIN ? readmove(lm) : enter_move(pos,lm) ;
+	return pipein!=-1 ? readmove(lm) : enter_move(pos,lm) ;
 }
 
 static move_t computer_move(position_t *pos)
@@ -503,7 +478,7 @@ static move_t computer_move(position_t *pos)
 		move=pass;
 		printf("I have no legal moves, I "BOLD"pass"NORMAL"\n");
 	}
-	if(PIPEOUT) writemove(move);
+	if(pipeout!=-1) writemove(move);
 	return move;
 }
 
@@ -584,9 +559,5 @@ bool play_game(position_t *pos)
 			pos->turntomove=!pos->turntomove;
 		}
 	}
-	if(pipein!=-1) close(pipein);
-	if(PIPEIN!=NULL) remove(PIPEIN);
-	if(pipeout!=-1) close(pipeout);
-	if(PIPEOUT!=NULL) remove(PIPEOUT);
 	return success;
 }

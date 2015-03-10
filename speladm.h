@@ -7,8 +7,8 @@
 
 #include "position.h"
 
-extern char *PIPEIN;
-extern char *PIPEOUT;
+extern int pipein;
+extern int pipeout;
 
 void replay_moves(position_t *pos,int frommove /* 0..59 */ );
 

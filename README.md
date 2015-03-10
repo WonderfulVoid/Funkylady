@@ -51,6 +51,11 @@ Below is from my Core2 Duo @ 2.0GHz:
 	10   2  c3    -1 16465179   0%   3.79   4344374
 	11   2  c3   -12 40039805   0%   9.33   4291511
 
+Play computer vs. computer using pipes:
+
+	terminal1$ ./funkylady -ccolor black -pipes A B
+	terminal2$ ./funkylady -ccolor white -pipes B A
+
 Design
 --------------
 TODO
