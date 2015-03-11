@@ -177,8 +177,8 @@ result_t endgame_search(board brd,color_t tomove,long target,evaluation_t eval)
 	result.target=target;
 	remove_played_moves(brd);
 
-	if(eval==discdiff) printf("Endgame calculation\n");
-	else if(eval==winloss) printf("Early endgame (win/loss) calculation\n");
+	if(eval==discdiff) printf("Endgame search, find the best move\n");
+	else if(eval==winloss) printf("Early endgame search, attempt to find a winning move\n");
 	printf("Search time target %lu.%02lu secs\n",target/100,target%100);
 
 	set_input(eval,count_matrix(brd.black)+count_matrix(brd.white),maxply,0,eval==winloss);
@@ -214,7 +214,7 @@ result_t endgame_search(board brd,color_t tomove,long target,evaluation_t eval)
 		else		printf("%2d  %2d  %s %5d %10lu  ~0\n",maxply,0,move,bestvalue,ABCALLS);
 	}
 
-	if(EARLYEXIT) printf("Search was terminated early\n");
+	if(EARLYEXIT) printf("Search was terminated early (ran out of time)\n");
 
 	return result;
 }
